@@ -7,12 +7,12 @@ module.exports = {
     },
     async create(req, res) {
 
-        const { user_name,user_date ,user_pass,user_email,user_cpf,ment_id,user_contato,user_sexo,user_desc, } = req.body;
+        const { user_name, user_date, user_pass, user_email, user_cpf, ment_id, user_contato, user_sexo, user_desc } = req.body;
         let data = {};
-        let user = await Usuario.findOne({ email_usuario });
+        let user = await Usuario.findOne({ user_name });
         if (!user) {
 
-            data = { user_name,user_date ,user_pass,user_email,user_cpf,ment_id,user_contato,user_sexo,user_desc, };
+            data = { user_name, user_date, user_pass, user_email, user_cpf, ment_id, user_contato, user_sexo, user_desc };
             user = await Usuario.create(data);
 
             return res.status(200).json(user);
@@ -20,17 +20,21 @@ module.exports = {
         } else {
             return res.status(500).json(user);
         }
-    }, async details(req, res) {
+    },
+    async details(req, res) {
         const { _id } = req.params;
         const user = await Usuario.findOne({ _id });
         res.json(user);
-    }, async delete(req, res) {
+    },
+    async delete(req, res) {
         const { _id } = req.params;
         const user = await Usuario.findByIdAndDelete({ _id });
         return res.json(user);
-    }, async update(req, res) {
-        const { _id, nome_usuario, email_usuario, senha_usuario, tipo_usuario } = req.body;
-        const data = { user_name,user_date ,user_pass,user_email,user_cpf,ment_id,user_contato,user_sexo,user_desc,, tipo_usuario };
+    },
+
+    async update(req, res) {
+        const { _id, user_name, user_date, user_pass, user_email, user_cpf, ment_id, user_contato, user_sexo, user_desc, tipo_usuario } = req.body;
+        const data = { user_name, user_date, user_pass, user_email, user_cpf, ment_id, user_contato, user_sexo, user_desc, tipo_usuario };
         const user = await Usuario.findOneAndUpdate({ _id }, data, { new: true });
         res.json(user);
     }
