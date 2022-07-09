@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 require('dotenv').config();
 const router = require('./routes');
+app.use(cors());
 
 try {
     mongoose.connect(process.env.BD_LINK, {

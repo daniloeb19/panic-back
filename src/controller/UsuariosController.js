@@ -3,7 +3,11 @@ const Usuario = require('../models/UsuarioModel')
 module.exports = {
     async index(req, res) {
         const user = await Usuario.find();
-        res.json(user);
+        if (user == null) {
+            return res.json({erro:"Erro"});
+        } else {
+            return res.json(user);
+        }
     },
     async create(req, res) {
 
@@ -24,18 +28,31 @@ module.exports = {
     async details(req, res) {
         const { _id } = req.params;
         const user = await Usuario.findOne({ _id });
-        res.json(user);
+        if (user == null) {
+            return res.json({erro:"Erro"});
+        } else {
+            return res.json(user);
+        }
+
     },
     async delete(req, res) {
         const { _id } = req.params;
         const user = await Usuario.findByIdAndDelete({ _id });
-        return res.json(user);
+        if (user == null) {
+            return res.json({erro:"Erro"});
+        } else {
+            return res.json(user);
+        }
     },
 
     async update(req, res) {
         const { _id, user_name, user_date, user_pass, user_email, user_cpf, ment_id, user_contato, user_sexo, user_desc, tipo_usuario } = req.body;
         const data = { user_name, user_date, user_pass, user_email, user_cpf, ment_id, user_contato, user_sexo, user_desc, tipo_usuario };
         const user = await Usuario.findOneAndUpdate({ _id }, data, { new: true });
-        res.json(user);
+        if (user == null) {
+            return res.json({erro:"Erro"});
+        } else {
+            return res.json(user);
+        }
     }
 }
