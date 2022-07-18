@@ -11,8 +11,11 @@ try {
     mongoose.connect(process.env.BD_LINK, {
         useNewUrlParser: true,
         useUnifiedTopology: true
-    }, () =>
-        console.log("Mongoose tá on")
+    }, () => {
+        console.log("Mongoose tá on");
+        console.log("juju?");
+    }
+
     );
 
 } catch (e) {

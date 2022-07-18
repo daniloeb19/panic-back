@@ -1,14 +1,15 @@
 const express = require('express');
 const router = express.Router();
 
-const Usuario = require('./controller/UsuariosController');
+const Mentorado = require('./controller/MentoradoController');
 
 //rotas de usuários
-router.get('/', Usuario.index);
-router.post('/api/usuarios',Usuario.create);
-router.get('/api/usuarios', Usuario.index);
-router.get('/api/usuarios.details/:_id',Usuario.details);
-router.delete('/api/usuarios/:_id',Usuario.delete);
-router.put('/api/usuarios',Usuario.update);
+router.get('/', Mentorado.index);
+router.post('/api/mentorado',Mentorado.create);
+router.get('/api/mentorado', Mentorado.index);
+router.get('/api/mentorado.details/:_id',Mentorado.details);
+router.get('/api/mentorado.find.email/:mentorado_email',Mentorado.pesquisarPorEmail);
+router.delete('/api/mentorado/:_id',Mentorado.delete);
+router.put('/api/mentorado',Mentorado.update);
 
 module.exports = router;
