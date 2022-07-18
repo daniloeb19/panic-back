@@ -11,12 +11,12 @@ module.exports = {
     },
     async create(req, res) {
 
-        const { mentorado_name, mentorado_date, mentorado_pass, mentorado_email, mentorado_cpf, mentorado_seg, mentorado_contato, mentorado_sexo, mentorado_desc } = req.body;
+        const { name, date, pass, email, cpf, seg, contato, sexo, desc } = req.body;
         let data = {};
-        let user = await Mentorado.findOne({ mentorado_name });
+        let user = await Mentorado.findOne({ name });
         if (!user) {
 
-            data = { mentorado_name, mentorado_date, mentorado_pass, mentorado_email, mentorado_cpf, mentorado_seg, mentorado_contato, mentorado_sexo, mentorado_desc };
+            data = { name, date, pass, email, cpf, seg, contato, sexo, desc };
             user = await Mentorado.create(data);
 
             return res.status(200).json(user);
@@ -35,8 +35,8 @@ module.exports = {
         }
     },
     async pesquisarPorEmail(req, res) {
-        const { mentorado_email } = req.params;
-        const user = await Mentorado.findOne({ mentorado_email });
+        const { email } = req.params;
+        const user = await Mentorado.findOne({ email });
         if (user == null) {
             return res.json({erro:"Erro"});
         } else {
@@ -54,8 +54,8 @@ module.exports = {
     },
 
     async update(req, res) {
-        const { _id, mentorado_name, mentorado_date, mentorado_pass, mentorado_email, mentorado_cpf, mentorado_seg, mentorado_contato, mentorado_sexo, mentorado_desc} = req.body;
-        const data = { mentorado_name, mentorado_date, mentorado_pass, mentorado_email, mentorado_cpf, mentorado_seg, mentorado_contato, mentorado_sexo, mentorado_desc};
+        const { _id, name, date, pass, email, cpf, seg, contato, sexo, desc} = req.body;
+        const data = { name, date, pass, email, cpf, seg, contato, sexo, desc};
         const user = await Mentorado.findOneAndUpdate({ _id }, data, { new: true });
         if (user == null) {
             return res.json({erro:"Erro"});
