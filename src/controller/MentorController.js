@@ -1,5 +1,6 @@
 const Mentor = require('../models/MentorModel')
-
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 module.exports = {
     async index(req, res) {
         const user = await Mentor.find();
@@ -34,13 +35,32 @@ module.exports = {
             return res.json(user);
         }
     },
-    async pesquisarPorEmail(req, res) {
-        const { email } = req.params;
+    async autenticacao(values) {
+        const { email, pass } = values;
         const user = await Mentor.findOne({ email });
         if (user == null) {
-            return res.json({erro:"Erro"});
+            return false;
+            
         } else {
-            return res.json(user);
+            const checkPass = await bcrypt.compare(pass, user.pass);
+            if (checkPass) {
+                let token=null;
+                try {
+                    token = jwt.sign({
+                        _id: user._id,
+                    },
+                        process.env.SECRET,
+                    );
+                    
+                    console.log("Autenticação realizada com sucesso");
+                } catch (error) {
+                    console.log(`Ocorreu um erro ${error}`);
+                }
+                return { user, token };
+            } else {
+                return { msg: "Acesso Negado" }
+            }
+
         }
     },
     async delete(req, res) {

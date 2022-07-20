@@ -1,10 +1,11 @@
 const Mentorado = require('../models/MentoradoModel')
-
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 module.exports = {
     async index(req, res) {
         const user = await Mentorado.find();
         if (user == null) {
-            return res.json({erro:"Erro"});
+            return res.json({ erro: "Erro" });
         } else {
             return res.json(user);
         }
@@ -29,36 +30,55 @@ module.exports = {
         const { _id } = req.params;
         const user = await Mentorado.findOne({ _id });
         if (user == null) {
-            return res.json({erro:"Erro"});
+            return res.json({ erro: "Erro" });
         } else {
             return res.json(user);
         }
     },
-    async pesquisarPorEmail(req, res) {
-        const { email } = req.params;
+    async autenticacao(values) {
+        const { email, pass } = values;
         const user = await Mentorado.findOne({ email });
         if (user == null) {
-            return res.json({erro:"Erro"});
+            return false;
+            
         } else {
-            return res.json(user);
+            const checkPass = await bcrypt.compare(pass, user.pass);
+            if (checkPass) {
+                let token=null;
+                try {
+                    token = jwt.sign({
+                        _id: user._id,
+                    },
+                        process.env.SECRET,
+                    );
+                    
+                    console.log("Autenticação realizada com sucesso");
+                } catch (error) {
+                    console.log(`Ocorreu um erro ${error}`);
+                }
+                return { user, token };
+            } else {
+                return { msg: "Acesso Negado" }
+            }
+
         }
     },
     async delete(req, res) {
         const { _id } = req.params;
         const user = await Mentorado.findByIdAndDelete({ _id });
         if (user == null) {
-            return res.json({erro:"Erro"});
+            return res.json({ erro: "Erro" });
         } else {
             return res.json(user);
         }
     },
 
     async update(req, res) {
-        const { _id, name, date, pass, email, cpf, seg, contato, sexo, desc} = req.body;
-        const data = { name, date, pass, email, cpf, seg, contato, sexo, desc};
+        const { _id, name, date, pass, email, cpf, seg, contato, sexo, desc } = req.body;
+        const data = { name, date, pass, email, cpf, seg, contato, sexo, desc };
         const user = await Mentorado.findOneAndUpdate({ _id }, data, { new: true });
         if (user == null) {
-            return res.json({erro:"Erro"});
+            return res.json({ erro: "Erro" });
         } else {
             return res.json(user);
         }
