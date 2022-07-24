@@ -58,7 +58,7 @@ module.exports = {
                 }
                 return { user, token };
             } else {
-                return { msg: "Acesso Negado" }
+                return false;
             }
 
         }
