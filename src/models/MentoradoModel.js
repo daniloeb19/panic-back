@@ -10,7 +10,8 @@ const DataSchema = new mongoose.Schema({
   cpf: String,
   contato: String,
   desc: {type: String, default:""},
-  seg: String, 
+  seg: String,
+  tipo: String, 
   mentor_id: {type: Number, default:0 },
 }, {
     timestamps: true

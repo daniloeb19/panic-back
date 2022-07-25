@@ -12,15 +12,15 @@ module.exports = {
     },
     async create(req, res) {
 
-        const { name, date, pass, email, cpf, seg, contato, sexo, desc } = req.body;
+        const { name, date, pass, email, cpf, seg, contato, sexo, desc,tipo } = req.body;
         let data = {};
         let user = await Mentorado.findOne({ name });
         if (!user) {
 
-            data = { name, date, pass, email, cpf, seg, contato, sexo, desc };
+            data = { name, date, pass, email, cpf, seg, contato, sexo, desc,tipo };
             user = await Mentorado.create(data);
 
-            return res.status(200).json(user);
+            return res.status(201).json(user);
 
         } else {
             return res.status(500).json(user);
@@ -74,8 +74,8 @@ module.exports = {
     },
 
     async update(req, res) {
-        const { _id, name, date, pass, email, cpf, seg, contato, sexo, desc } = req.body;
-        const data = { name, date, pass, email, cpf, seg, contato, sexo, desc };
+        const { _id, name, date, pass, email, cpf, seg, contato, sexo, desc,tipo } = req.body;
+        const data = { name, date, pass, email, cpf, seg, contato, sexo, desc,tipo };
         const user = await Mentorado.findOneAndUpdate({ _id }, data, { new: true });
         if (user == null) {
             return res.json({ erro: "Erro" });

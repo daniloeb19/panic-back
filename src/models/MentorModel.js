@@ -12,6 +12,7 @@ const DataSchema = new mongoose.Schema({
     cpf: String,
     contato: String,
     seg: String,
+    tipo: String, 
     desc: {type: String, default:""},
 }, {
     timestamps: true
