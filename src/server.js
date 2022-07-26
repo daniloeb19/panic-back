@@ -11,12 +11,12 @@ try {
     mongoose.connect(process.env.BD_LINK, {
         useNewUrlParser: true,
         useUnifiedTopology: true
-    }, () => 
-        console.log("Mongoose tá on")
+    }, () =>
+        console.log("Mongoose está on")
     );
 
 } catch (e) {
-    console.log("Mongoose tá off" + e);
+    console.log("Mongoose está off\n" + e);
 }
 
 app.use(bodyParser.json());
@@ -25,6 +25,10 @@ app.use(router);
 
 
 app.listen(process.env.SERVER_PORT, () => {
-    console.log("Servidor está ouvindo?");
+    try {
+        console.log("Servidor está ouvindo na porta:", process.env.SERVER_PORT);
+    } catch (e) {
+        console.log("Servidor está off\n" + e);
+    }
 }
 )
