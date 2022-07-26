@@ -62,6 +62,36 @@ module.exports = {
             }
 
         }
+    }, async autenticacaoSenha(values) {
+        const { email, seg } = values;
+        const user = await Mentor.findOne({ email });
+        if (user == null) {
+            return false;
+
+        } else {
+            let checkPass = false;
+            if (seg === user.seg) {
+                checkPass = true;
+            }
+            if (checkPass) {
+                let token = null;
+                try {
+                    token = jwt.sign({
+                        _id: user._id,
+                    },
+                        process.env.SECRET,
+                    );
+
+                    console.log("Autenticação realizada com sucesso");
+                } catch (error) {
+                    console.log(`Ocorreu um erro ${error}`);
+                }
+                return { user, token };
+            } else {
+                return false;
+            }
+
+        }
     },
     async delete(req, res) {
         const { _id } = req.params;
@@ -80,7 +110,8 @@ module.exports = {
         if (user == null) {
             return res.json({ erro: "Erro" });
         } else {
-            return res.json(user);
+            return res.status(202).json(user);
         }
     }
+
 }

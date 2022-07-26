@@ -12,12 +12,12 @@ module.exports = {
     },
     async create(req, res) {
 
-        const { name, date, pass, email, cpf, seg, contato, sexo, desc,tipo } = req.body;
+        const { name, date, pass, email, cpf, seg, contato, sexo, desc, tipo } = req.body;
         let data = {};
         let user = await Mentorado.findOne({ name });
         if (!user) {
 
-            data = { name, date, pass, email, cpf, seg, contato, sexo, desc,tipo };
+            data = { name, date, pass, email, cpf, seg, contato, sexo, desc, tipo };
             user = await Mentorado.create(data);
 
             return res.status(201).json(user);
@@ -40,18 +40,48 @@ module.exports = {
         const user = await Mentorado.findOne({ email });
         if (user == null) {
             return false;
-            
+
         } else {
             const checkPass = await bcrypt.compare(pass, user.pass);
             if (checkPass) {
-                let token=null;
+                let token = null;
                 try {
                     token = jwt.sign({
                         _id: user._id,
                     },
                         process.env.SECRET,
                     );
-                    
+
+                    console.log("Autenticação realizada com sucesso");
+                } catch (error) {
+                    console.log(`Ocorreu um erro ${error}`);
+                }
+                return { user, token };
+            } else {
+                return false;
+            }
+
+        }
+    }, async autenticacaoSenha(values) {
+        const { email, seg } = values;
+        const user = await Mentorado.findOne({ email });
+        if (user == null) {
+            return false;
+
+        } else {
+           let checkPass = false;
+            if (seg === user.seg) {
+                checkPass = true;
+            }
+            if (checkPass) {
+                let token = null;
+                try {
+                    token = jwt.sign({
+                        _id: user._id,
+                    },
+                        process.env.SECRET,
+                    );
+
                     console.log("Autenticação realizada com sucesso");
                 } catch (error) {
                     console.log(`Ocorreu um erro ${error}`);
@@ -74,13 +104,13 @@ module.exports = {
     },
 
     async update(req, res) {
-        const { _id, name, date, pass, email, cpf, seg, contato, sexo, desc,tipo } = req.body;
-        const data = { name, date, pass, email, cpf, seg, contato, sexo, desc,tipo };
+        const { _id, name, date, pass, email, cpf, seg, contato, sexo, desc, tipo } = req.body;
+        const data = { name, date, pass, email, cpf, seg, contato, sexo, desc, tipo };
         const user = await Mentorado.findOneAndUpdate({ _id }, data, { new: true });
         if (user == null) {
             return res.json({ erro: "Erro" });
         } else {
-            return res.json(user);
+            return res.status(202).json(user);
         }
     }
 }
