@@ -27,6 +27,15 @@ module.exports = {
         }
     },
     async details(req, res) {
+        const { _id } = req;
+        const user = await Mentor.findOne({ _id });
+        if (user == null) {
+            return false;
+        } else {
+            return { user };
+        }
+    },
+    async detailsId(req, res) {
         const { _id } = req.params;
         const user = await Mentor.findOne({ _id });
         if (user == null) {
@@ -35,8 +44,8 @@ module.exports = {
             return res.json(user);
         }
     },
-    async autenticacao(values) {
-        const { email, pass } = values;
+    async autenticacao(req) {
+        const { email, pass } = req;
         const user = await Mentor.findOne({ email });
         if (user == null) {
             return false;
@@ -62,8 +71,8 @@ module.exports = {
             }
 
         }
-    }, async autenticacaoSenha(values) {
-        const { email, seg } = values;
+    }, async autenticacaoSenha(req) {
+        const { email, seg } = req;
         const user = await Mentor.findOne({ email });
         if (user == null) {
             return false;
@@ -102,16 +111,23 @@ module.exports = {
             return res.json(user);
         }
     },
-
+    // async update(req, res) {
+    //     const { _id, name, date, sexo, pass, email, area, profissao, cpf, contato, seg, tipo, desc } = req.body;
+    //     const data = { name, date, sexo, pass, email, area, profissao, cpf, contato, seg, tipo, desc };
+    //     const user = await Mentor.findOneAndUpdate({ _id }, data, { new: true });
+    //     if (user == null) {
+    //         return res.json({ erro: "Erro" });
+    //     } else {
+    //         return res.status(202).json(user);
+    //     }
+    // },
     async update(req, res) {
-        const { _id, name, date, sexo, pass, email, area, profissao, cpf, contato, seg, tipo, desc } = req.body;
-        const data = { name, date, sexo, pass, email, area, profissao, cpf, contato, seg, tipo, desc };
-        const user = await Mentor.findOneAndUpdate({ _id }, data, { new: true });
+        const { updateValues } = req;
+        const user = await Mentor.findOneAndUpdate({ _id: updateValues._id }, updateValues, { new: true });
         if (user == null) {
-            return res.json({ erro: "Erro" });
+            return { erro: "Erro" };
         } else {
-            return res.status(202).json(user);
+            return user;
         }
     }
-
 }

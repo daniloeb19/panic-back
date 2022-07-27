@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-export default function checkToken(req, res, next) {
+function checkToken(req, res, next) {
     const authHeader = req.headers['x-access-token'];
     const token = authHeader;
 
@@ -13,13 +13,13 @@ export default function checkToken(req, res, next) {
            if(error){
             return res.status(400).json({ msg: "Token Inválido" })
            }else{
-            req.id = decode.id;
+            req.id = decode._id;
             next();
            }
         });
-       // next();
-
+      
     } catch (error) {
         return res.status(400).json({ msg: "Token Inválido" })
     }
 }
+module.exports = checkToken;

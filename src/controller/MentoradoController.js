@@ -27,6 +27,15 @@ module.exports = {
         }
     },
     async details(req, res) {
+        const { _id } = req;
+        const user = await Mentorado.findOne({ _id });
+        if (user == null) {
+            return false;
+        } else {
+            return { user };
+        }
+    },
+    async detailsId(req, res) {
         const { _id } = req.params;
         const user = await Mentorado.findOne({ _id });
         if (user == null) {
@@ -35,8 +44,9 @@ module.exports = {
             return res.json(user);
         }
     },
-    async autenticacao(values) {
-        const { email, pass } = values;
+
+    async autenticacao(req) {
+        const { email, pass } = req;
         const user = await Mentorado.findOne({ email });
         if (user == null) {
             return false;
@@ -62,14 +72,14 @@ module.exports = {
             }
 
         }
-    }, async autenticacaoSenha(values) {
-        const { email, seg } = values;
+    }, async autenticacaoSenha(req) {
+        const { email, seg } = req;
         const user = await Mentorado.findOne({ email });
         if (user == null) {
             return false;
 
         } else {
-           let checkPass = false;
+            let checkPass = false;
             if (seg === user.seg) {
                 checkPass = true;
             }
@@ -103,14 +113,23 @@ module.exports = {
         }
     },
 
+    // async update(req, res) {
+    //     const { _id, name, date, pass, email, cpf, seg, contato, sexo, desc, tipo } = req.body;
+    //     const data = { name, date, pass, email, cpf, seg, contato, sexo, desc, tipo };
+    //     const user = await Mentorado.findOneAndUpdate({ _id }, data, { new: true });
+    //     if (user == null) {
+    //         return res.json({ erro: "Erro" });
+    //     } else {
+    //         return res.status(202).json(user);
+    //     }
+    // }
     async update(req, res) {
-        const { _id, name, date, pass, email, cpf, seg, contato, sexo, desc, tipo } = req.body;
-        const data = { name, date, pass, email, cpf, seg, contato, sexo, desc, tipo };
-        const user = await Mentorado.findOneAndUpdate({ _id }, data, { new: true });
+        const { updateValues } = req;
+        const user = await Mentorado.findOneAndUpdate({ _id: updateValues._id }, updateValues, { new: true });
         if (user == null) {
-            return res.json({ erro: "Erro" });
+            return { erro: "Erro" };
         } else {
-            return res.status(202).json(user);
+            return user;
         }
     }
 }
