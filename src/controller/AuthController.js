@@ -4,6 +4,21 @@ const bcrypt = require('bcrypt');
 
 const jwt = require('jsonwebtoken');
 module.exports = {
+    async authCheck(req, res) {
+        const _id = req._id;
+        const findMentorado = await Mentorado.details({ _id }, res);
+        const findMentor = await Mentor.details({ _id }, res);
+        if (findMentorado) {
+            // console.log({ findMentorado })
+            return res.status(202).json({ ...findMentorado });
+        }
+
+        if (findMentor) {
+            //console.log({ ...findMentor })
+            return res.status(202).json({ ...findMentor });
+        }
+        return res.status(203).json({ msg: "Acesso Negado" });
+    },
     async authLogin(req, res) {
         const email = req.body.email;
         const pass = req.body.pass;

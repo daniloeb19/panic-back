@@ -123,11 +123,22 @@ module.exports = {
     // },
     async update(req, res) {
         const { updateValues } = req;
+       
         const user = await Mentor.findOneAndUpdate({ _id: updateValues._id }, updateValues, { new: true });
         if (user == null) {
             return { erro: "Erro" };
         } else {
             return user;
+        }
+    },
+    async updateData(req, res) {
+        const { _id, name,date,sexo,pass,email,area,profissao,cpf,contato,seg,desc} = req.body;
+        const data = { name,date,sexo,pass,email,area,profissao,cpf,contato,seg,desc};
+        const user = await Mentor.findOneAndUpdate({ _id }, data, { new: true });
+        if (user == null) {
+            return res.json({erro:"Erro"});
+        } else {
+            return res.json(user);
         }
     }
 }

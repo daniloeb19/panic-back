@@ -125,11 +125,22 @@ module.exports = {
     // }
     async update(req, res) {
         const { updateValues } = req;
+        console.log("aqui: ", req)
         const user = await Mentorado.findOneAndUpdate({ _id: updateValues._id }, updateValues, { new: true });
         if (user == null) {
             return { erro: "Erro" };
         } else {
             return user;
+        }
+    },
+    async updateData(req, res) {
+        const { _id, name, date, pass, email, cpf, seg, contato, sexo, desc } = req.body;
+        const data = { name, date, pass, email, cpf, seg, contato, sexo, desc };
+        const user = await Mentorado.findOneAndUpdate({ _id }, data, { new: true });
+        if (user == null) {
+            return res.json({ erro: "Erro" });
+        } else {
+            return res.json(user);
         }
     }
 }
