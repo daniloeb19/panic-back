@@ -28,7 +28,7 @@ app.listen(process.env.SERVER_PORT, () => {
     try {
         console.log("Servidor está ouvindo na porta:", process.env.SERVER_PORT);
     } catch (e) {
-        console.log("Servidor está off\n" + e);
+        console.log("Servidor está off: \n" + e);
     }
 }
 )
