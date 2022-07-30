@@ -12,8 +12,8 @@ const DataSchema = new mongoose.Schema({
     cpf: String,
     contato: String,
     seg: String,
-    tipo: String, 
-    desc: {type: String, default:""},
+    tipo: String,
+    desc: { type: String, default: "" },
 }, {
     timestamps: true
 });
@@ -27,15 +27,18 @@ DataSchema.pre('save', function (next) {
     next();
 
 });
-
-DataSchema.pre('findOneAndUpdate', function (next) {
+DataSchema.pre('findAndUpdate', function (next) {
     var password = this.getUpdate().pass + '';
+    console.log(this.isModified("pass"))
     if (password.length < 55) {
         this.getUpdate().pass = bcrypt.hashSync(password, 10);
     }
     next();
-
 });
+
+
+
+
 
 const mentorado = mongoose.model('Mentor', DataSchema);
 module.exports = mentorado;
