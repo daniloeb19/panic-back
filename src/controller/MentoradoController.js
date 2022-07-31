@@ -14,7 +14,7 @@ module.exports = {
 
         const { name, date, pass, email, cpf, seg, contato, sexo, desc, tipo } = req.body;
         let data = {};
-        let user = await Mentorado.findOne({ name });
+        let user = await Mentorado.findOne({ email });
         if (!user) {
 
             data = { name, date, pass, email, cpf, seg, contato, sexo, desc, tipo };

@@ -14,7 +14,7 @@ module.exports = {
 
         const { name, date, sexo, pass, email, area, profissao, cpf, contato, seg, tipo, desc } = req.body;
         let data = {};
-        let user = await Mentor.findOne({ name });
+        let user = await Mentor.findOne({ email });
         if (!user) {
 
             data = { name, date, sexo, pass, email, area, profissao, cpf, contato, seg, tipo, desc };
