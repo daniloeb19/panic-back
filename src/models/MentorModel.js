@@ -27,17 +27,20 @@ DataSchema.pre('save', function (next) {
     next();
 
 });
-DataSchema.pre('findAndUpdate', function (next) {
+DataSchema.pre('findAndUpdate', async function (next) {
     var password = this.getUpdate().pass + '';
-    console.log(this.isModified("pass"))
     if (password.length < 55) {
-        this.getUpdate().pass = bcrypt.hashSync(password, 10);
+        this.getUpdate().pass = await bcrypt.hashSync(password, 10);
     }
     next();
 });
-
-
-
+DataSchema.pre('findOneAndUpdate', async function (next) {
+    var password = this.getUpdate().pass + '';
+    if (password.length < 55) {
+        this.getUpdate().pass = await bcrypt.hashSync(password, 10);
+    }
+    next();
+});
 
 
 const mentorado = mongoose.model('Mentor', DataSchema);
