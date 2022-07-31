@@ -35,6 +35,7 @@ module.exports = {
             return { user };
         }
     },
+
     async detailsId(req, res) {
         const { _id } = req.params;
         const user = await Mentorado.findOne({ _id });
@@ -124,9 +125,8 @@ module.exports = {
     //     }
     // }
     async update(req, res) {
-        const { updateValues } = req;
-        console.log("aqui: ", req)
-        const user = await Mentorado.findOneAndUpdate({ _id: updateValues._id }, updateValues, { new: true });
+        const { _id, pass } = req.updateValues;
+        const user = await Mentorado.findOneAndUpdate(_id, pass, { new: true });
         if (user == null) {
             return { erro: "Erro" };
         } else {

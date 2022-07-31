@@ -35,6 +35,7 @@ module.exports = {
             return { user };
         }
     },
+
     async detailsId(req, res) {
         const { _id } = req.params;
         const user = await Mentor.findOne({ _id });
@@ -122,9 +123,8 @@ module.exports = {
     //     }
     // },
     async update(req, res) {
-        const { updateValues } = req;
-
-        const user = await Mentor.findOneAndUpdate({ _id: updateValues._id }, updateValues, { new: true });
+        const { _id, pass } = req.updateValues;
+        const user = await Mentor.findOneAndUpdate(_id, pass, { new: true });
         if (user == null) {
             return { erro: "Erro" };
         } else {
