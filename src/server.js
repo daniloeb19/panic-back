@@ -24,9 +24,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(router);
 
 
-app.listen(process.env.SERVER_PORT, () => {
+app.listen(process.env.PORT || process.env.SERVER_PORT, () => {
     try {
-        console.log("Servidor está ouvindo na porta:", process.env.SERVER_PORT);
+        console.log("Servidor está on");
     } catch (e) {
         console.log("Servidor está off: \n" + e);
     }
