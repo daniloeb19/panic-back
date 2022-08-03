@@ -30,7 +30,7 @@ router.get('/api/mentoria', checkToken, async (req, res) => {
 });
 
 //rotas de mentorados
-router.get('/', Mentorado.index);
+router.get('/mentorado', Mentorado.index);
 router.post('/api/mentorado', Mentorado.create);
 router.get('/api/mentorado', Mentorado.index);
 router.get('/api/mentorado.details/:_id', Mentorado.detailsId);
@@ -38,7 +38,7 @@ router.delete('/api/mentorado/:_id', Mentorado.delete);
 router.put('/api/mentorado', Mentorado.update);
 router.put('/api/mentorado-data', Mentorado.updateData);
 //rotas de mentores
-router.get('/', Mentor.index);
+router.get('/mentor', Mentor.index);
 router.post('/api/mentor', Mentor.create);
 router.get('/api/mentor', Mentor.index);
 router.get('/api/mentor.details/:_id', Mentor.detailsId);
