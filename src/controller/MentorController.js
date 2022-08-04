@@ -124,7 +124,7 @@ module.exports = {
     // },
     async update(req, res) {
         const { _id, pass } = req.updateValues;
-        const user = await Mentor.findOneAndUpdate(_id, pass, { new: true });
+        const user = await Mentor.findOneAndUpdate({ _id: _id }, { pass: pass }, { new: true });
         if (user == null) {
             return { erro: "Erro" };
         } else {
@@ -134,7 +134,7 @@ module.exports = {
     async updateData(req, res) {
         const { _id, name, date, sexo, email, area, profissao, cpf, contato, seg, desc } = req.body;
         const data = { name, date, sexo, email, area, profissao, cpf, contato, seg, desc };
-        const user = await Mentor.findOneAndUpdate({ _id }, data, { new: true });
+        const user = await Mentor.updateOne({ _id }, data, { new: true });
         if (user == null) {
             return res.json({ erro: "Erro" });
         } else {
