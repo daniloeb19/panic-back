@@ -12,7 +12,6 @@ const DataSchema = new mongoose.Schema({
     desc: { type: String, default: "" },
     seg: String,
     tipo: String,
-    mentor_id: { type: Number, default: 0 },
 }, {
     timestamps: true
 });
