@@ -28,14 +28,14 @@ DataSchema.pre('save', function (next) {
 
 });
 DataSchema.pre('findAndUpdate', async function (next) {
-    var password = this.getUpdate().pass + '';
+    var password = await this.getUpdate().pass + '';
     if (password.length < 55) {
         this.getUpdate().pass = await bcrypt.hashSync(password, 10);
     }
     next();
 });
 DataSchema.pre('findOneAndUpdate', async function (next) {
-    var password = this.getUpdate().pass + '';
+    var password = await this.getUpdate().pass + '';
     if (password.length < 55) {
         this.getUpdate().pass = await bcrypt.hashSync(password, 10);
     }
