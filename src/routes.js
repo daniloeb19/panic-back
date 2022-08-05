@@ -26,7 +26,8 @@ router.post('/api/mentoria', checkToken, async (req, res) => {
 });
 
 router.get('/api/mentoria', checkToken, async (req, res) => {
-    return await Mentoria.mostrarConexoesMentor({_id_mentor: req.id },res)
+    const retorno = await Mentoria.mostrarConexoesMentor({ _id_mentor: req.id }, res);
+    return retorno;
 });
 
 //rotas de mentorados
