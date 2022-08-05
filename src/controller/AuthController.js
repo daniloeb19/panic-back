@@ -20,8 +20,8 @@ module.exports = {
         return res.status(203).json({ msg: "Acesso Negado" });
     },
     async authLogin(req, res) {
-        const email = await req.body.email;
-        const pass = await req.body.pass;
+        const email = req.body.email;
+        const pass = req.body.pass;
         const findMentorado = await Mentorado.autenticacao({ email, pass });
         const findMentor = await Mentor.autenticacao({ email, pass });
 
