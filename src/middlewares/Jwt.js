@@ -14,6 +14,7 @@ function checkToken(req, res, next) {
             return res.status(400).json({ msg: "Token Inválido" })
            }else{
             req.id = decode._id;
+            req.name = decode.name;
             next();
            }
         });
