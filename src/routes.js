@@ -16,7 +16,9 @@ router.get('/auth/check', checkToken, async (req, res) => {
     const retorno = await Auth.authCheck({ _id: req.id }, res);
     return retorno;
 });
-
+router.get('/api/return/name', checkToken, async (req, res) => {
+    return res.status(202).json({ name: req.name });
+})
 //rotas de mentoria
 router.post('/api/mentoria', checkToken, async (req, res) => {
     const retorno = await Mentorado.details({ _id: req.id });
@@ -46,5 +48,12 @@ router.get('/api/mentor.details/:_id', Mentor.detailsId);
 router.delete('/api/mentor/:_id', Mentor.delete);
 router.put('/api/mentor', Mentor.update);
 router.put('/api/mentor-data', Mentor.updateData);
+//Rotas Delete All
 
+router.delete('/api/delete/mentor', checkToken, (req, res) => {
+
+})
+router.delete('/api/delete/mentorado', checkToken, (req, res) => {
+
+})
 module.exports = router;
