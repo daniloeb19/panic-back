@@ -58,6 +58,7 @@ module.exports = {
                 try {
                     token = jwt.sign({
                         _id: user._id,
+                        name: user.name,
                     },
                         process.env.SECRET,
                     );
@@ -79,29 +80,10 @@ module.exports = {
             return false;
 
         } else {
-            let checkPass = false;
-            if (seg === user.seg) {
-                checkPass = true;
-            }
-            if (checkPass) {
-                let token = null;
-                try {
-                    token = jwt.sign({
-                        _id: user._id,
-                    },
-                        process.env.SECRET,
-                    );
-
-                    console.log("Autenticação realizada com sucesso");
-                } catch (error) {
-                    console.log(`Ocorreu um erro ${error}`);
-                }
-                return { user, token };
-            } else {
-                return false;
-            }
-
+            return false;
         }
+
+
     },
     async delete(req, res) {
         const { _id } = req.params;

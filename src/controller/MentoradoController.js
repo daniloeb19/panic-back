@@ -59,6 +59,7 @@ module.exports = {
                 try {
                     token = jwt.sign({
                         _id: user._id,
+                        name: user.name,
                     },
                         process.env.SECRET,
                     );
@@ -80,28 +81,7 @@ module.exports = {
             return false;
 
         } else {
-            let checkPass = false;
-            if (seg === user.seg) {
-                checkPass = true;
-            }
-            if (checkPass) {
-                let token = null;
-                try {
-                    token = jwt.sign({
-                        _id: user._id,
-                    },
-                        process.env.SECRET,
-                    );
-
-                    console.log("Autenticação realizada com sucesso");
-                } catch (error) {
-                    console.log(`Ocorreu um erro ${error}`);
-                }
-                return { user, token };
-            } else {
-                return false;
-            }
-
+            return { user };
         }
     },
     async delete(req, res) {
@@ -136,7 +116,7 @@ module.exports = {
     async updateData(req, res) {
         const { _id, name, date, email, cpf, seg, contato, sexo, desc } = req.body;
         const data = { name, date, email, cpf, seg, contato, sexo, desc };
-        const user = await Mentorado.updateOne({ _id },   data , { new: true });
+        const user = await Mentorado.updateOne({ _id }, data, { new: true });
         if (user == null) {
             return res.json({ erro: "Erro" });
         } else {
