@@ -110,7 +110,7 @@ module.exports = {
         if (user == null) {
             return { erro: "Erro" };
         } else {
-            return user;
+            return res.status(202).json(user);
         }
     },
     async updateData(req, res) {
@@ -122,5 +122,19 @@ module.exports = {
         } else {
             return res.json(user);
         }
-    }
+    }, async autenticado(req, res) {
+        const { _id, currentPass } = req;
+        const user = await Mentor.findOne({ _id });
+        if (user == null) {
+            return { statusCode: 404 };
+        } else {
+            const checkPass = await bcrypt.compare(currentPass, user.pass);
+            if (checkPass) {
+                return { statusCode: 202, user };
+            } else {
+                return {statusCode: 203};
+            }
+
+        }
+    },
 }
