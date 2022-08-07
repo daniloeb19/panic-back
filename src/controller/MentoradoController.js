@@ -11,17 +11,13 @@ module.exports = {
         }
     },
     async create(req, res) {
-
         const { name, date, pass, email, cpf, seg, contato, sexo, desc, tipo } = req.body;
         let data = {};
         let user = await Mentorado.findOne({ email });
         if (!user) {
-
             data = { name, date, pass, email, cpf, seg, contato, sexo, desc, tipo };
             user = await Mentorado.create(data);
-
             return res.status(201).json(user);
-
         } else {
             return res.status(500).json(user);
         }
