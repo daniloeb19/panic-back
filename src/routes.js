@@ -56,4 +56,11 @@ router.delete('/api/delete/mentor', checkToken, (req, res) => {
 router.delete('/api/delete/mentorado', checkToken, (req, res) => {
 
 })
+
+router.delete('/api/delete/mentoria/:_id', checkToken, async (req, res) => {
+    
+    const retorno = await Mentoria.deleteMentoria(req, res)
+    return retorno;
+}
+);
 module.exports = router;

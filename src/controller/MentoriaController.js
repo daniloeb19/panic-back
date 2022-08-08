@@ -25,6 +25,14 @@ module.exports = {
         } else {
             return res.status(200).json(user);
         }
+    }, async deleteMentoria(req, res) {
+        const { _id } = req.params;
+        const mentoria = await Mentoria.findByIdAndDelete({ _id });
+        if (mentoria == null) {
+            return res.status(203);
+        } else {
+            return res.status(202).json(mentoria);
+        }
     },
 
 }
