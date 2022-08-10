@@ -9,9 +9,9 @@ module.exports = {
 
         if (!mentoria) {
             data = { _id_mentor, _id_mentorado, nome_mentorado, contato_mentorado, email_mentorado };
-        
+
             mentoria = await Mentoria.create(data);
-        
+
             return res.status(201).json(mentoria);
         } else {
             return res.status(500).json(mentoria);
@@ -25,9 +25,19 @@ module.exports = {
         } else {
             return res.status(200).json(user);
         }
-    }, async deleteMentoria(req, res) {
+    },
+    async deleteMentoria(req, res) {
         const { _id } = req.params;
         const mentoria = await Mentoria.findByIdAndDelete({ _id });
+        if (mentoria == null) {
+            return res.status(203);
+        } else {
+            return res.status(202).json(mentoria);
+        }
+    },
+    async deleteMentoriaMentor(req, res) {
+        const { _id_mentor } = req;
+        const mentoria = await Mentoria.findOneAndDelete({ _id_mentor });
         if (mentoria == null) {
             return res.status(203);
         } else {

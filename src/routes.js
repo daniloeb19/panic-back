@@ -50,17 +50,24 @@ router.put('/api/mentor', Mentor.update);
 router.put('/api/mentor-data', Mentor.updateData);
 //Rotas Delete All
 
-router.delete('/api/delete/mentor', checkToken, (req, res) => {
-
+router.delete('/api/delete/mentor', checkToken, async (req, res) => {
+    const retorno = await Mentor.delete({ _id: req.id }, res)
+    return retorno;
 })
-router.delete('/api/delete/mentorado', checkToken, (req, res) => {
-
+router.delete('/api/delete/mentorado', checkToken, async (req, res) => {
+    const retorno = await Mentorado.delete({ _id: req.id }, res)
+    return retorno;
 })
 
 router.delete('/api/delete/mentoria/:_id', checkToken, async (req, res) => {
-    
     const retorno = await Mentoria.deleteMentoria(req, res)
     return retorno;
-}
-);
+});
+
+router.post('/api/delete/mentoria/mentor', checkToken, async (req, res) => {
+    const retorno = await Mentoria.deleteMentoriaMentor({ _id_mentor: req.id }, res)
+    return retorno;
+});
+
+
 module.exports = router;

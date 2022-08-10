@@ -86,12 +86,12 @@ module.exports = {
 
     },
     async delete(req, res) {
-        const { _id } = req.params;
+        const { _id } = req;
         const user = await Mentor.findByIdAndDelete({ _id });
         if (user == null) {
-            return res.json({ erro: "Erro" });
+            return res.status(203).json({ erro: "Erro" });
         } else {
-            return res.json(user);
+            return res.status(202).json(user);
         }
     },
     // async update(req, res) {
@@ -132,7 +132,7 @@ module.exports = {
             if (checkPass) {
                 return { statusCode: 202, user };
             } else {
-                return {statusCode: 203};
+                return { statusCode: 203 };
             }
 
         }

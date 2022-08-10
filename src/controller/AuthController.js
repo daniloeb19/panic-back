@@ -59,7 +59,6 @@ module.exports = {
             const mentorado = await Mentorado.update({ updateValues: { pass: senha, _id: _id } },res)
             return mentorado
         }
-
         if (findMentor.user) {
             const mentor = await Mentor.update({ updateValues: { pass: senha, _id: _id } },res);
             return mentor

@@ -81,12 +81,12 @@ module.exports = {
         }
     },
     async delete(req, res) {
-        const { _id } = req.params;
+        const { _id } = req;
         const user = await Mentorado.findByIdAndDelete({ _id });
         if (user == null) {
-            return res.json({ erro: "Erro" });
+            return res.status(203).json({ erro: "Erro" });
         } else {
-            return res.json(user);
+            return res.status(202).json(user);
         }
     },
 
