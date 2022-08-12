@@ -7,10 +7,16 @@ const Auth = require('./controller/AuthController');
 const Mentoria = require('./controller/MentoriaController');
 const checkToken = require('./middlewares/Jwt');
 
-
+router.all("/", (res)=>{
+    res.status(200).json({msg: "Servidor Diz: Tudo certo por aqui!"})
+})
 //rotas de autenticação
 router.post('/auth/login', Auth.authLogin);
-router.post('/auth/senha', Auth.authSenha);
+router.post('/auth/find', Auth.findUser);
+router.post('/auth/senha',async (req,res)=>{
+    let retorno = await Auth.authSenha(req,res);
+    return retorno;
+});
 router.post('/auth/senha-log', checkToken, Auth.authSenhaLog);
 router.get('/auth/check', checkToken, async (req, res) => {
     const retorno = await Auth.authCheck({ _id: req.id }, res);
@@ -32,6 +38,11 @@ router.get('/api/mentoria', checkToken, async (req, res) => {
     return retorno;
 });
 
+router.put('/api/mentoria-data', checkToken, async (req, res) => { 
+    const retorno = await Mentoria.updateData(req, res);
+    return retorno;
+});
+
 //rotas de mentorados
 router.get('/mentorado', Mentorado.index);
 router.post('/api/mentorado', Mentorado.create);
@@ -48,8 +59,9 @@ router.get('/api/mentor.details/:_id', Mentor.detailsId);
 router.delete('/api/mentor/:_id', Mentor.delete);
 router.put('/api/mentor', Mentor.update);
 router.put('/api/mentor-data', Mentor.updateData);
-//Rotas Delete All
 
+
+//Rotas Delete All
 router.delete('/api/delete/mentor', checkToken, async (req, res) => {
     const retorno = await Mentor.delete({ _id: req.id }, res)
     return retorno;
