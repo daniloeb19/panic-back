@@ -101,7 +101,7 @@ module.exports = {
     //     }
     // }
     async update(req, res) {
-        const { _id, pass } = req.updateValues;
+        const { _id, pass } = req.body;
         const user = await Mentorado.findOneAndUpdate({ _id: _id }, { pass: pass }, { new: true });
         if (user == null) {
             return { erro: "Erro" };
