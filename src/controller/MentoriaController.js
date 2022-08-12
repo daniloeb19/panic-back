@@ -44,5 +44,15 @@ module.exports = {
             return res.status(202).json(mentoria);
         }
     },
+    async updateData(req, res) {
+        const { _id, name, contato } = req.body;
+        const data = { name, contato };
+        const user = await Mentoria.updateOne({ _id_mentorado: _id }, data, { new: true });
+        if (user == null) {
+            return res.json({ erro: "Erro" });
+        } else {
+            return res.json(user);
+        }
+    }
 
 }
