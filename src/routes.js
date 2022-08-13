@@ -7,7 +7,7 @@ const Auth = require('./controller/AuthController');
 const Mentoria = require('./controller/MentoriaController');
 const checkToken = require('./middlewares/Jwt');
 
-router.all("/", (res)=>{
+router.get("/", (req, res)=>{
     res.status(200).json({msg: "Servidor Diz: Tudo certo por aqui!"})
 })
 //rotas de autenticação
