@@ -9,7 +9,8 @@ const checkToken = require('./middlewares/Jwt');
 
 router.get("/", (req, res)=>{
     res.status(200).json({msg: "Servidor Diz: Tudo certo por aqui!"})
-})
+});
+
 //rotas de autenticação
 router.post('/auth/login', Auth.authLogin);
 router.post('/auth/find', Auth.findUser);

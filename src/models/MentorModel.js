@@ -43,5 +43,5 @@ DataSchema.pre('findOneAndUpdate', async function (next) {
 });
 
 
-const mentorado = mongoose.model('Mentor', DataSchema);
-module.exports = mentorado;
+const mentor = mongoose.model('Mentor', DataSchema);
+module.exports = mentor;
