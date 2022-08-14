@@ -7,6 +7,8 @@ const Auth = require('./controller/AuthController');
 const Mentoria = require('./controller/MentoriaController');
 const checkToken = require('./middlewares/Jwt');
 
+//Teste para o deploy
+
 router.get("/", (req, res)=>{
     res.status(200).json({msg: "Servidor Diz: Tudo certo por aqui!"})
 });
@@ -45,19 +47,19 @@ router.put('/api/mentoria-data', checkToken, async (req, res) => {
 });
 
 //rotas de mentorados
-router.get('/mentorado', Mentorado.index);
+//router.get('/mentorado', Mentorado.index);
 router.post('/api/mentorado', Mentorado.create);
 router.get('/api/mentorado', Mentorado.index);
-router.get('/api/mentorado.details/:_id', Mentorado.detailsId);
-router.delete('/api/mentorado/:_id', Mentorado.delete);
+//router.get('/api/mentorado.details/:_id', Mentorado.detailsId);
+//router.delete('/api/mentorado/:_id', Mentorado.delete);
 router.put('/api/mentorado', Mentorado.update);
 router.put('/api/mentorado-data', Mentorado.updateData);
 //rotas de mentores
-router.get('/mentor', Mentor.index);
+//router.get('/mentor', Mentor.index);
 router.post('/api/mentor', Mentor.create);
 router.get('/api/mentor', Mentor.index);
-router.get('/api/mentor.details/:_id', Mentor.detailsId);
-router.delete('/api/mentor/:_id', Mentor.delete);
+//router.get('/api/mentor.details/:_id', Mentor.detailsId);
+//router.delete('/api/mentor/:_id', Mentor.delete);
 router.put('/api/mentor', Mentor.update);
 router.put('/api/mentor-data', Mentor.updateData);
 
