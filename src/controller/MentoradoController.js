@@ -110,8 +110,8 @@ module.exports = {
         }
     },
     async updateData(req, res) {
-        const { _id, name, date, email, cpf, seg, contato, sexo, desc } = req.body;
-        const data = { name, date, email, cpf, seg, contato, sexo, desc };
+        const { _id, name, date, seg, contato, sexo, desc } = req.body;
+        const data = { name, date, seg, contato, sexo, desc };
         const user = await Mentorado.updateOne({ _id }, data, { new: true });
         if (user == null) {
             return res.json({ erro: "Erro" });
