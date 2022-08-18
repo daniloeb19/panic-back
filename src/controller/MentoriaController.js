@@ -36,12 +36,16 @@ module.exports = {
         }
     },
     async deleteMentoriaMentor(req, res) {
-        const { _id_mentor } = req;
-        const mentoria = await Mentoria.findOneAndDelete({ _id_mentor });
-        if (mentoria == null) {
+        const _id_mentor = req._id_mentor;
+        try {
+            const mentoria = await Mentoria.findByIdAndDelete({ _id_mentor: _id_mentor });
+            if (mentoria == null) {
+                return res.status(203);
+            } else {
+                return res.status(202).json(mentoria);
+            }
+        } catch (err) {
             return res.status(203);
-        } else {
-            return res.status(202).json(mentoria);
         }
     },
     async updateData(req, res) {
