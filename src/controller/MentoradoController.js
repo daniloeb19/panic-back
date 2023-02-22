@@ -89,6 +89,17 @@ module.exports = {
             return res.status(202).json(user);
         }
     },
+
+    // async update(req, res) {
+    //     const { _id, name, date, pass, email, cpf, seg, contato, sexo, desc, tipo } = req.body;
+    //     const data = { name, date, pass, email, cpf, seg, contato, sexo, desc, tipo };
+    //     const user = await Mentorado.findOneAndUpdate({ _id }, data, { new: true });
+    //     if (user == null) {
+    //         return res.json({ erro: "Erro" });
+    //     } else {
+    //         return res.status(202).json(user);
+    //     }
+    // }
     async update(req, res) {
         const { _id, pass } = req.body;
         const user = await Mentorado.findOneAndUpdate({ _id: _id }, { pass: pass }, { new: true });

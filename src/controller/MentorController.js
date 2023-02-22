@@ -94,7 +94,16 @@ module.exports = {
             return res.status(202).json(user);
         }
     },
-
+    // async update(req, res) {
+    //     const { _id, name, date, sexo, pass, email, area, profissao, cpf, contato, seg, tipo, desc } = req.body;
+    //     const data = { name, date, sexo, pass, email, area, profissao, cpf, contato, seg, tipo, desc };
+    //     const user = await Mentor.findOneAndUpdate({ _id }, data, { new: true });
+    //     if (user == null) {
+    //         return res.json({ erro: "Erro" });
+    //     } else {
+    //         return res.status(202).json(user);
+    //     }
+    // },
     async update(req, res) {
         const { _id, pass } = req.body;
         const user = await Mentor.findOneAndUpdate({ _id: _id }, { pass: pass }, { new: true });
