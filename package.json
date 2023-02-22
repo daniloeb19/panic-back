@@ -6,6 +6,7 @@
   "scripts": {
     "start": "nodemon src/server.js",
     "start-node": "node src/server.js",
+    "build": "babel src -d dist --presets=@babel/preset-env",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -27,5 +28,11 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.4.4",
     "nodemon": "^2.0.19"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.0",
+    "@babel/preset-env": "^7.20.2",
+    "babel-cli": "^6.26.0"
   }
 }

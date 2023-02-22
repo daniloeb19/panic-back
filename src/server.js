@@ -31,4 +31,4 @@ app.listen(process.env.PORT || process.env.SERVER_PORT, () => {
         console.log("Servidor está off: \n" + e);
     }
 }
-)
+);
